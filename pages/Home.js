@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './../component/Task';
 
+import InputSpinner from 'react-native-input-spinner';
+
 export default function App() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
@@ -30,7 +32,8 @@ export default function App() {
 
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's tasks</Text>
+        <Text style={styles.sectionTitle}>Podotodos</Text>
+        
         <View style={styles.items}>
           {/* This is where the tasks will go! */}
           {
@@ -44,19 +47,37 @@ export default function App() {
           }
         </View>
       </View>
+
         
       </ScrollView>
 
       {/* Write a task */}
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <View style={styles.writeTaskWrapper}>
+          <InputSpinner
+                max={10}
+                min={2}
+                step={2}
+                colorMax={"#f04048"}
+                colorMin={"#40c5f4"}
+                value={3}
+                onChange={(num)=>{console.log(num)}}>
+          </InputSpinner>
+      </View>
+  
+      <View style={styles.writeTaskWrapper}>
+        
         <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
+        
       </View>
+    
+
       
     </View>
   );
@@ -73,13 +94,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   items: {
     marginTop: 30,
   },
   writeTaskWrapper: {
-    position: 'absolute',
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
