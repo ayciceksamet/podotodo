@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './pages/Home'
+import TaskDetail from './pages/TaskDetail'
 
 export default function App() {
   
@@ -13,6 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="podotodo" component={Home} />
+        <Stack.Screen name="TaskDetail" component={TaskDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
