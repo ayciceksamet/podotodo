@@ -67,6 +67,7 @@ export default function App({navigation}) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
+          console.log("ON REQUEST CLOSE")
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
@@ -148,6 +149,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
+    color: "#267fc1",
     fontWeight: 'bold',
   },
   items: {
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     borderRadius: 15,
@@ -166,10 +168,10 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#267fc1",
   },
   buttonClose: {
-    backgroundColor: "#7BDCB5",
+    backgroundColor: "#267fc1",
   },
   textStyle: {
     color: "white",
@@ -191,17 +193,21 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 250,
+    width: 300,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: '#FFF',
+    backgroundColor: '#267fc1',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#C0C0C0',
     borderWidth: 1,
   },
-  addText: {},
+  addText: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
 });
