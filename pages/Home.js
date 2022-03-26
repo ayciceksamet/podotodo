@@ -3,20 +3,47 @@ import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpaci
 import Task from './../component/Task';
 
 import InputSpinner from 'react-native-input-spinner';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function App({navigation}) {
-  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+  const [podoCount, setPodoCount] = useState();
+  const [text, setText] = useState();
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
        setModalVisible(true)
   }
 
-  const handleAddTask = () => {
+  const setTaskInfo = (taskText, podoCount) => {
+        let podoTodo = {}
+
+        podoTodo.text = taskText
+
+        console.log("podoCount")
+
+        console.log(podoCount)
+
+        let podoCountValue = podoCount
+        podoTodo.podoCount = podoCountValue
+
+
+        console.log("podoTodo")
+        console.log(podoTodo)
+
+        return podoTodo
+
+  }
+
+  const handleAddTask = (text, podoCount) => {
     Keyboard.dismiss();
+    if(!podoCount){
+      podoCount = 1
+    }
+    let task = setTaskInfo(text,podoCount)
     setTaskItems([...taskItems, task])
-    setTask(null);
+    setText("")
+    setPodoCount("")
     setModalVisible(!modalVisible)
   }
 
@@ -44,9 +71,11 @@ export default function App({navigation}) {
           {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
+              console.log("item")
+              console.log(item)
               return (
                 <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <Task text={item} /> 
+                  <Task text={item.text} podoCount={item.podoCount} /> 
                 </TouchableOpacity>
               )
             })
@@ -74,7 +103,7 @@ export default function App({navigation}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>           
-            <TextInput style={styles.input} placeholder={"Let's Create a Podotodo"} value={task} onChangeText={text => setTask(text)} />
+            <TextInput style={styles.input} placeholder={"Let's Create a Podotodo"} value={text} onChangeText={textValue => setText(textValue)} />
             <InputSpinner
                 max={5}
                 min={1}
@@ -86,14 +115,14 @@ export default function App({navigation}) {
                 width={20}
                 skin={"modern"}
                 style={styles.inputSpinner}
-                onChange={(num)=>{console.log(num)}}>
+                onChange={(num)=>{setPodoCount(num)}}>
             </InputSpinner>
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => handleAddTask()}
+              onPress={() => handleAddTask(text, podoCount)}
             >
-              <Text style={styles.textStyle}>DONE</Text>
+              <Text style={styles.textStyle}>Save</Text>
             </Pressable>
           </View>
         </View>
