@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const Task = (props) => {
 
@@ -8,6 +10,9 @@ const Task = (props) => {
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                 <Text style={styles.itemText}>{props.text + " " +props.podoCount}</Text>
+                <MaterialCommunityIcons name="timer-sand-full" color='#ADE' size={30} />
+                <MaterialCommunityIcons name="timer-sand-empty" color='#ADE' size={30} />
+
             </View>
             <View style={styles.circular}></View>
         </View>
@@ -17,29 +22,32 @@ const Task = (props) => {
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#FFF',
-        padding: 15,
-        borderRadius: 10,
+        padding: 20,
+        borderRadius: 20,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
         marginBottom: 20,
-
+        width: 350,
+        height: 150
     },
     itemLeft: {
         flexDirection: 'row',
-        alignItems: "center",
-        flexWrap: 'wrap'
+        alignItems: "flex-start",
+        flexWrap: 'wrap',
     },
     square: {
         width: 24,
         height: 24,
+        flexDirection: 'row',
+        alignItems: "flex-start",
         backgroundColor: '#55BCF6',
         opacity: 0.4,
         borderRadius: 5,
-        marginRight: 15,
+        marginRight: 10,
     },
     itemText: {
-        maxWidth: '80%'
+        maxWidth: '80%',
     },
     circular: {
         width: 12,
