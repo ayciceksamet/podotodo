@@ -16,22 +16,18 @@ export default function App({navigation}) {
   }
 
   const setTaskInfo = (taskText, podoCount) => {
-        let podoTodo = {}
+        let todos = {}
 
-        podoTodo.text = taskText
+        todos.text = taskText
 
         console.log("podoCount")
 
         console.log(podoCount)
 
         let podoCountValue = podoCount
-        podoTodo.podoCount = podoCountValue
+        todos.podoCount = podoCountValue
 
-
-        console.log("podoTodo")
-        console.log(podoTodo)
-
-        return podoTodo
+        return todos
 
   }
 
@@ -65,7 +61,7 @@ export default function App({navigation}) {
 
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Podotodos</Text>
+        <Text style={styles.sectionTitle}>Lets split our works</Text>
         
         <View style={styles.items}>
           {/* This is where the tasks will go! */}
@@ -103,7 +99,7 @@ export default function App({navigation}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>           
-            <TextInput style={styles.input} placeholder={"Let's Create a Podotodo"} value={text} onChangeText={textValue => setText(textValue)} />
+            <TextInput style={styles.input} placeholder={"Let's Create a todo"} value={text} onChangeText={textValue => setText(textValue)} />
             <InputSpinner
                 max={5}
                 min={1}
