@@ -13,7 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="podotodo" component={Home} />
+        <Stack.Screen name="todos" component={Home} />
         <Stack.Screen name="TaskDetail" component={TaskDetail} />
       </Stack.Navigator>
     </NavigationContainer>

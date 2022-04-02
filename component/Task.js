@@ -5,13 +5,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Task = (props) => {
 
+    var timeLoop = [];
+
+    for (let i = 0; i < props.podoCount; i++) {
+        timeLoop.push(
+            <MaterialCommunityIcons name="timer-sand-full" color='#ADE' size={30} />
+        );
+    }
+
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>
                 <View style={styles.square}></View>
                 <Text style={styles.itemText}>{props.text + " " +props.podoCount}</Text>
-                <MaterialCommunityIcons name="timer-sand-full" color='#ADE' size={30} />
-                <MaterialCommunityIcons name="timer-sand-empty" color='#ADE' size={30} />
+                {timeLoop}
 
             </View>
             <View style={styles.circular}></View>
