@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Modal, Pressable } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Pressable } from 'react-native';
 import Task from './../component/Task';
+import Modal from "react-native-modal";
 
 import InputSpinner from 'react-native-input-spinner';
 import { useFocusEffect } from '@react-navigation/native';
@@ -14,6 +15,12 @@ export default function App({navigation}) {
   const openModal = () => {
        setModalVisible(true)
   }
+
+  const closeModal = () => {
+       console.log("KAPATILDI")
+       setModalVisible(false)
+  }
+
 
   const setTaskInfo = (taskText, podoCount) => {
         let todos = {}
@@ -43,6 +50,7 @@ export default function App({navigation}) {
     setModalVisible(!modalVisible)
   }
 
+
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -61,14 +69,12 @@ export default function App({navigation}) {
 
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Lets split our works</Text>
+        <Text style={styles.sectionTitle}>Splited Task List</Text>
         
         <View style={styles.items}>
           {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
-              console.log("item")
-              console.log(item)
               return (
                 <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
                   <Task text={item.text} podoCount={item.podoCount} /> 
@@ -88,14 +94,12 @@ export default function App({navigation}) {
 
       <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          console.log("ON REQUEST CLOSE")
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
+        isVisible={modalVisible}
+        onBackdropPress={() => closeModal()}
+        swipeDirection={['up', 'left', 'right', 'down']}
+        style={styles.bottomModalView}
+        hasBackdrop={true}
+
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>           
@@ -144,10 +148,13 @@ export default function App({navigation}) {
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22
+  },
+  bottomModalView: {
+    justifyContent: 'flex-end',
+    margin: 0,
   },
   modalView: {
     margin: 20,
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EAED',
   },
   tasksWrapper: {
-    paddingTop: 80,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   sectionTitle: {
@@ -181,11 +188,12 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   writeTaskWrapper: {
-    bottom: 60,
+    paddingRight: 20,
+    bottom: 40,
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'coloumn',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   button: {
     borderRadius: 15,

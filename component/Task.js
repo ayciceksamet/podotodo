@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Task = (props) => {
 
+    //TO-DO : key has to be added to list !!!
     var timeLoop = [];
 
     for (let i = 0; i < props.podoCount; i++) {
