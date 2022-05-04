@@ -17,12 +17,11 @@ const Task = (props) => {
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>
-                <View style={styles.square}></View>
-                <Text style={styles.itemText}>{props.text + " " +props.podoCount}</Text>
-                {timeLoop}
-
+                <Text numberOfLines = {2} style={styles.itemText}>{props.text}</Text>
+                <View style={styles.square}><Text>{props.podoCount}</Text></View>
             </View>
-            <View style={styles.circular}></View>
+            <View style={styles.itemTimerSandFull}>{timeLoop}</View>
+            <MaterialCommunityIcons style={styles.itemTimerSandFull} name="play-circle-outline" color='#ADE' size={30} />
         </View>
     )
 }
@@ -32,12 +31,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         padding: 20,
         borderRadius: 20,
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 10,
         width: 350,
         height: 150
+    },
+    itemTimerSandFull: {
+        paddingTop: 10,
+        paddingLeft: 5,
+        flexDirection: 'row',
+        alignItems: "flex-start",
     },
     itemLeft: {
         flexDirection: 'row',
@@ -45,16 +49,22 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     square: {
-        width: 24,
-        height: 24,
-        flexDirection: 'row',
-        alignItems: "flex-start",
-        backgroundColor: '#55BCF6',
-        opacity: 0.4,
+        width: 20,
+        height: 20,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        opacity: 0.3,
+        paddingLeft: 4,
+        marginLeft: 40,
         borderRadius: 5,
-        marginRight: 10,
+        borderWidth: 2,
+        borderColor: '#55BCF6',
     },
     itemText: {
+        flexDirection: 'column',
+        flex:1,
+        alignItems: "flex-start",
+        fontSize: 17,
         maxWidth: '80%',
     },
     circular: {

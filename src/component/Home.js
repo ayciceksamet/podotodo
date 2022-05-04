@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Pressable } from 'react-native';
-import Task from './../component/Task';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Pressable, SafeAreaView } from 'react-native';
+import Task from './Task';
 import Modal from "react-native-modal";
 
 import InputSpinner from 'react-native-input-spinner';
 import { useFocusEffect } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+
+import { addTodo } from './feature/todosSlice';
 
 export default function App({navigation}) {
   const [taskItems, setTaskItems] = useState([]);
   const [podoCount, setPodoCount] = useState();
   const [text, setText] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+
+  const dispatch = useDispatch();
 
   const openModal = () => {
        setModalVisible(true)
@@ -43,11 +48,13 @@ export default function App({navigation}) {
     if(!podoCount){
       podoCount = 1
     }
+    dispatch(addTodo(text,podoCount))
     let task = setTaskInfo(text,podoCount)
     setTaskItems([...taskItems, task])
     setText("")
     setPodoCount("")
     setModalVisible(!modalVisible)
+ 
   }
 
 
@@ -58,7 +65,7 @@ export default function App({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
@@ -69,7 +76,7 @@ export default function App({navigation}) {
 
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Splited Task List</Text>
+        <Text style={styles.sectionTitle}>Task List</Text>
         
         <View style={styles.items}>
           {/* This is where the tasks will go! */}
@@ -103,7 +110,13 @@ export default function App({navigation}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>           
-            <TextInput style={styles.input} placeholder={"Let's Create a todo"} value={text} onChangeText={textValue => setText(textValue)} />
+            <TextInput 
+            style={styles.input} 
+            multiline
+            enablesReturnKeyAutomatically =  {true}
+            placeholder={"Let's Create a todo..."} 
+            value={text} 
+            onChangeText={textValue => setText(textValue)} />
             <InputSpinner
                 max={5}
                 min={1}
@@ -142,7 +155,7 @@ export default function App({navigation}) {
     
 
       
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -176,7 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EAED',
   },
   tasksWrapper: {
-    paddingTop: 20,
+    paddingTop: 50,
     paddingHorizontal: 20,
   },
   sectionTitle: {
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     bottom: 40,
     width: '100%',
-    flexDirection: 'coloumn',
+    flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'flex-end',
   },
@@ -223,10 +236,11 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
-    borderRadius: 60,
+    borderRadius: 30,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 300,
+    width: 350,
+    height: 75,
   },
   addWrapper: {
     width: 60,
